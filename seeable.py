@@ -117,7 +117,7 @@ try:
         def do2():
             if QD:
                 global input1
-                i=input1[-1:-4]
+                i=input1[-4:-1]
                 if i!=".png" and i!=".img" and i!=".jpg" and i!=".jpeg" and i!=".html" and i!=".m3u8":
                     msg.showerror("错误","给定的文件不合法.")
                 try:
@@ -129,7 +129,15 @@ try:
                 msg.showwarning("警告","您未点击\"确定\".")  
 
         def do3():
-            pass                
+            if QD:
+                global input2 
+                try:
+                    re=search.search(input2)
+                    msg.showinfo("结果","搜索结果：%s"%re）
+                except Exception as e:
+                    msg.showerror("错误","%s"%e)
+            else:
+                msg.showwarning("警告","您未点击\"确定\".")                 
 
         root=tk.Tk()
         root.geometry("800x600+0+0")
@@ -150,10 +158,10 @@ try:
         pw1=tk.PanedWindow(root,orient="vertical",sashrelief="flat")
         pw2=tk.PanedWindow(root,orient="vertical",sashrelief="flat")
         pw.add(pw1),pw.add(pw2)
-        label1=ttk.Label(pw1,text="数据一路径:(必填.直接定位文件绝对路径)")
+        label1=ttk.Label(pw1,text="数据一路径:(在模式1和2中必选，模式3中不可选)")
         butto_1=ttk.Button(pw1,text="打开...",command=iget1)
         butto_2=ttk.Button(pw1,text="打开...",command=iget2)
-        label2=ttk.Label(pw1,text="数据二路径:(选填.也可定位文件绝对路径)")  
+        label2=ttk.Label(pw1,text="数据二路径:(在模式1和3中必选，模式2中不可选。模式3应当输入而非选择文件。)")  
         value1=tk.StringVar()
         value2=tk.StringVar()  
         entry2=ttk.Entry(pw1)
@@ -162,7 +170,7 @@ try:
         scale1.config(length=200)
         butto1=ttk.Button(pw1,text="确定",command=make)  
         butto2=ttk.Button(pw1,text="退出",command=sys.exit)  
-        label1.place(x=120,y=20),butto_1.place(x=350,y=20),label2.place(x=120,y=50),entry2.place(x=350,y=50),butto_2.place(x=500,y=50),label3.place(x=250,y=80),scale1.place(x=300,y=110),butto1.place(x=300,y=160),butto2.place(x=300,y=190)
+        label1.place(x=120,y=20),butto_1.place(x=350,y=20),label2.place(x=120,y=50),entry2.place(x=500,y=50),butto_2.place(x=650,y=50),label3.place(x=250,y=80),scale1.place(x=300,y=110),butto1.place(x=300,y=160),butto2.place(x=300,y=190)
 
         help_=ttk.Label(pw2,text="或许你只是没有把上面的横线往下拉!")
         root.mainloop()
